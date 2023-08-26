@@ -4,9 +4,6 @@ import { InjectedConnector } from "wagmi/connectors/injected";
 import toast from "react-hot-toast";
 
 const Navbar = () => {
-  const { data, isError, isLoading } = useEnsName({
-    address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
-  })
   const { address, isConnected } = useAccount();
 
   const { disconnect } = useDisconnect({
@@ -122,9 +119,6 @@ const Navbar = () => {
             <span className="relative text-black">Connect Wallet</span>
           )}
         </button>
-        <p>
-          Name: {data}
-        </p>
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const goerliTestNet = {
     symbol: "GoerliETH",
   },
   rpcUrls: {
-    default: "https://goerli.infura.io/v3/",
+    default: "https://eth-goerli.g.alchemy.com/v2/aDreg16x2qN4ncisNMITdVDGZ2Nzz4zB",
   },
   blockExplorers: {
     default: { name: "Etherscan", url: "https://goerli.etherscan.io" },
