@@ -7,6 +7,11 @@
       font-family: Mabry Pro, sans-serif;
     }
   }
+
+  .catchy-headline {
+    font-family: 'Poppins', sans-serif;
+    color: #333; /* Adjust the color as needed */
+  }
   
   /* import font url */
   @import url(//db.onlinewebfonts.com/c/95cecf452d3208890088a5b4c19c7ecf?family=Helvetica+Neue+ME);

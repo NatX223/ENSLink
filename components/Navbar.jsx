@@ -2,13 +2,12 @@ import Image from "next/image";
 import { useAccount, useConnect, useEnsName, useDisconnect } from "wagmi";
 import { InjectedConnector } from "wagmi/connectors/injected";
 import toast from "react-hot-toast";
-import { useGetDeployedAddresses } from "../hooks/useStorageHooks";
-import { useLogin } from "../src/hooks/useLogin";
 
 const Navbar = () => {
+  const { data, isError, isLoading } = useEnsName({
+    address: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+  })
   const { address, isConnected } = useAccount();
-
-  const { login, isPending } = useLogin();
 
   const { disconnect } = useDisconnect({
     onSuccess() {
@@ -27,7 +26,7 @@ const Navbar = () => {
     },
   });
   const { connect } = useConnect({
-    chainId: 80001,
+    chainId: 5,
     connector: new InjectedConnector(),
     onSuccess() {
       toast.success("Account connected!", {
@@ -45,13 +44,8 @@ const Navbar = () => {
     },
   });
 
-  const { data, isLoading, isError } = useGetDeployedAddresses();
-
   return (
     <div id="navbar" className="navbar sticky top-0 z-50 ">
-      <h1>
-        {isError ? "Error" : isLoading ? "Loading" : JSON.stringify(data)}
-      </h1>
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -104,30 +98,9 @@ const Navbar = () => {
             </li>
           </ul>
         </div>
-        <Image
-          className="hover:animate-spin cursor-pointer"
-          src="/sun.png"
-          width={50}
-          height={50}
-          alt="yo"
-          onClick={() => {
-            window.location.href = "/";
-          }}
-        />
       </div>
       <div className="navbar-end">
         <div className="flex space-x-8 mr-8 text-lg">
-          <a
-            href="/createProject"
-            id="create"
-            className="hidden md:block relative before:content-[''] before:absolute before:block before:w-full before:h-[1px] 
-              before:bottom-0 before:left-0 before:bg-black
-              before:hover:scale-x-100 before:scale-x-0 before:origin-top-left
-              before:transition before:ease-in-out before:duration-300
-              active:after:content-[''] active:after:absolute active:after:block active:after:w-full active:after:h-[1px]"
-          >
-            Create Project
-          </a>
         </div>
         <button
           onClick={() => {
@@ -149,18 +122,9 @@ const Navbar = () => {
             <span className="relative text-black">Connect Wallet</span>
           )}
         </button>
-        {/* <button
-          onClick={login}
-          className="relative inline-block px-4 py-2 font-medium group "
-        >
-          <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#bff22d] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-          <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#bff22d]"></span>
-          {isPending ? (
-            <span className="relative text-black">Loading...</span>
-          ) : (
-            <span className="relative text-black">Login With Github</span>
-          )}
-        </button> */}
+        <p>
+          Name: {data}
+        </p>
       </div>
     </div>
   );
