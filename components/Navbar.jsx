@@ -1,11 +1,14 @@
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { connectWallet } from "../utils/app";
+import { getUserAddress } from "../utils/app";
 
 const Navbar = () => {
+  const [address, setAddress] = useState(null);
 
   return (
-    <div id="navbar" className="navbar sticky top-0 z-50 ">
+          <div id="navbar" className="navbar sticky top-0 z-50 ">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -66,12 +69,21 @@ const Navbar = () => {
         // write connect wallet function
         onClick={async () => {
           await connectWallet();
-        }}        
+          const userAddress = await getUserAddress();
+          setAddress(userAddress);
+          console.log(userAddress);
+        }}
           className="relative inline-block px-4 py-2 font-medium group "
         >
           <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#bff22d] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
           <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#bff22d]"></span>
-            <span className="relative text-black">Connect Wallet</span>
+          {address ? (
+            <span className="relative text-black">
+            {address.slice(0, 6) + "..." + address.slice(-4)}
+          </span>
+        ) : (
+          <span className="relative text-black">Connect Wallet</span>
+          )}
         </button>
       </div>
     </div>

@@ -4,8 +4,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { getSecret, registerName } from "../utils/registerName";
 import { nameLookUp } from "../utils/nameLookUp";
-import { createLinkTree, getLink, renew, resolveName } from "../utils/app";
-import { registerLinks } from "../utils/app";
+import { createLinkTree } from "../utils/app";
 
 const LinkCreation = () => {
   const [ENSNameValue, setENSName] = useState(

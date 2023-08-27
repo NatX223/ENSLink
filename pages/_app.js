@@ -21,3 +21,4 @@ function App({ Component, pageProps }) {
 export default dynamic(() => Promise.resolve(App), {
   ssr: false,
 });
+
