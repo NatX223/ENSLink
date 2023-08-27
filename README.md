@@ -24,7 +24,6 @@ The following is a sequence diagram outlining the contract interactions:
 
 sequenceDiagram
 
-Title: ENS Linktree Platform Sequence Diagram
 
 User -> Application: Navigate to application
 User -> Application: Provide ENS name
