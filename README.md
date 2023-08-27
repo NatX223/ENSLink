@@ -22,7 +22,7 @@ The following is a sequence diagram outlining the contract interactions:
 
 ```mermaid
 
-sequenceDiagram
+sequenceDiagram;
 
 User ->> Application: Navigate to application
 
