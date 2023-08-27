@@ -3,7 +3,7 @@ import { db } from "./config";
 
 export async function storeLinks (userAddress, ENSName, twitterLink, instagramLink, threadsLink, website) {
         try {
-            await addDoc(collection(db, "LinkTress"), {
+            await addDoc(collection(db, "LinkTrees"), {
                 Address: userAddress,
                 ENSName: ENSName,
                 Instagram: instagramLink,
@@ -17,36 +17,17 @@ export async function storeLinks (userAddress, ENSName, twitterLink, instagramLi
         }
 };
 
-export async function getProjects () {
-    const projectsRef = collection(db, "projects");
-    const q = query(projectsRef, orderBy("id"), limit(7));
-    const docs = [];
-    try {
-        const projectsDocs = await getDocs(q);
-        // check if the doc exists and is
-        projectsDocs.forEach((doc) => {
-            docs.push(doc.data());
-          });
-        console.log("returned successfully");
-        console.log(projectsDocs, docs);
-        return docs;
-    } catch (error) {
-      console.log(error);
-    }
-};
-
-export async function getProject (projectAddress) {
-  const projectsRef = collection(db, "projects");
-  const q = query(projectsRef, where("DAOAddress", "==", projectAddress));
+export async function getLinks(ENSName) {
+  const projectsRef = collection(db, "LinkTrees");
+  const q = query(projectsRef, where("ENSName", "==", ENSName));
   const docs = [];
   try {
-      const projectsDocs = await getDocs(q);
-      // check if the doc exists and is
-      projectsDocs.forEach((doc) => {
+      const tree = await getDocs(q);
+      tree.forEach((doc) => {
           docs.push(doc.data());
         });
       console.log("returned successfully");
-      console.log(projectsDocs, docs);
+      console.log(docs);
       return docs;
   } catch (error) {
     console.log(error);

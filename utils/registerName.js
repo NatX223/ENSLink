@@ -64,3 +64,27 @@ export async function getSecret() {
       console.error(error);
   }
 }
+
+export async function renewName(
+  signer,
+) {
+  try {
+  // Connect to the ENS Registrar Controller
+  const contract = new ethers.Contract(
+    '0x283af0b28c62c092c9727f1ee09c02ca627eb7f5',
+    ABI,
+    signer
+  )
+  await contract.renew(
+      "NatX.eth", // name
+      31556952, // duration
+      {
+          value: 5000000000000000, // Add 10% to account for price fluctuation; the difference is refunded.
+          gasLimit: 310000,
+      }
+  );
+  console.log("registered");
+  } catch (error) {
+      console.error(error);
+  }
+}

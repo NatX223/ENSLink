@@ -5,6 +5,6 @@ export const ABI = [
     'function commit(bytes32 commitment) public',
     'function registerWithConfig(string memory name, address owner, uint duration, bytes32 secret, address resolver, address addr) public payable',
     'function minCommitmentAge() public view returns(uint)',
-    // 'function renew(uint256 id, uint duration) external returns(uint)'
+    'function renew(string memory name, uint duration) external returns(uint)'
 ]
 

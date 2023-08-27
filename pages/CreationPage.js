@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { getSecret, registerName } from "../utils/registerName";
 import { nameLookUp } from "../utils/nameLookUp";
-import { resolveName } from "../utils/app";
+import { createLinkTree, getLink, renew, resolveName } from "../utils/app";
 import { registerLinks } from "../utils/app";
 
 const LinkCreation = () => {
@@ -123,7 +123,9 @@ const LinkCreation = () => {
                     // await nameLookUp(signer, provider, ENSNameValue, address);
                     // await resolveName();
                     // await registerLinks(ENSNameValue, TwitterHandleValue, InstagramHandleValue, ThreadsHandleValue, WebsiteValue);
-                    await getSecret();
+                    await createLinkTree(ENSNameValue, TwitterHandleValue, InstagramHandleValue, ThreadsHandleValue, WebsiteValue);
+                    // await getSecret();
+                    // await renew();
                     toast("project created");
                 } catch (e) {
                   console.log(e);

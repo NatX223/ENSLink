@@ -1,13 +1,22 @@
 import { ethers } from "ethers";
 require("dotenv").config();
 import { BrowserProvider, parseUnits } from "ethers";
-import { storeLinks } from "../src/useFirestore";
+import { storeLinks, getLinks } from "../src/useFirestore";
+import { registerName, renewName } from "./registerName";
+
 
 var provider;
 var signer;
 var address;
 
 const contractAddress = "0x228568EA92aC5Bc281c1E30b1893735c60a139F1";
+
+// functions
+// GenerateLink ✅
+// retreiveLinks
+// renewName
+// tip
+// contribute
 
 export const connectWallet = async () => {
     provider = new ethers.BrowserProvider(window.ethereum);
@@ -39,7 +48,8 @@ export const resolveName = async (name, address) => {
     }
 };
 
-export const registerLinks = async (ENSName, twitterLink, instagramLink, threadsLink, website) => {
+
+export const createLinkTree = async (ENSName, twitterLink, instagramLink, threadsLink, website) => {
     try {
         const userAddress = await getAddress();
         await storeLinks(userAddress, ENSName, twitterLink, instagramLink, threadsLink, website);
@@ -48,4 +58,26 @@ export const registerLinks = async (ENSName, twitterLink, instagramLink, threads
         console.error(error);
     }
 };
+
+export const retrieveLinkTree = async (ENSName) => {
+    try {
+        const links = await getLinks(ENSName);
+        console.log("storage successful", links);
+        return links;
+    } catch (error) {
+        console.error(error);
+    }
+} ;
+
+export const renew = async () => {
+    try {
+        await renewName(signer);
+        console.log("registration successful");
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+
+
 
