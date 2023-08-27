@@ -56,7 +56,7 @@ const LinkTree = () => {
               height={200}
               alt="yo"
               />
-              <h1 className="catchy-headline">
+              <h1 className="catchy-headline text-2xl">
                   {ENSName}
               </h1>
           </div>
@@ -70,10 +70,10 @@ const LinkTree = () => {
       ))}
     </div>
     <div className="text-center">
-        <div>
-          <div className="form-control">
+        <div className=''>
+          <div className="form-control two-column-grid-container">
           <button
-              className="relative inline-block px-4 py-2 font-medium group mt-4 w-[300px] mx-auto"
+              className="relative inline-block px-4 py-2 font-medium group mt-4 w-[250px] mx-auto"
             >
               <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#9dd0eb] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
               <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#9dd0eb]"></span>

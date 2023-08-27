@@ -12,7 +12,15 @@
     font-family: 'Poppins', sans-serif;
     color: #333; /* Adjust the color as needed */
   }
-  
+
+  .two-column-grid-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Three columns with equal width */
+    gap: 1px; /* Gap between grid items */
+    justify-items: center; /* Center items horizontally within each cell */
+    align-items: center; /* Center items vertically within each cell */
+  } 
+
   /* import font url */
   @import url(//db.onlinewebfonts.com/c/95cecf452d3208890088a5b4c19c7ecf?family=Helvetica+Neue+ME);
   

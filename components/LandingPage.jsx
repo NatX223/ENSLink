@@ -33,7 +33,7 @@ const LandingPage = () => {
             <h1 className="text-2xl text-black ml-8">  </h1>
           </div>
         </div>
-        <footer className="bg-[#f2dbd0]">
+        <footer className="bg-[#9dd0eb]">
           <div className="max-w-7xl mx-auto py-12 px-4 overflow-hidden sm:px-6 lg:px-8">
             <h1 className="text-2xl text-black">Made with ❤️ by NatX et Mercy</h1>
           </div>

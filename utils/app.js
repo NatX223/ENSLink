@@ -93,7 +93,6 @@ export const tip = async (address, amount) => {
             to: address,
             value: weiValue
           });
-          
           receipt = await tx.wait();
         console.log("tipped successfully", _value);
     } catch (error) {
