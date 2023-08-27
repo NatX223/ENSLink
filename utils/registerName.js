@@ -19,14 +19,14 @@ const resolver = '0xd7a4F6473f32aC2Af804B3686AE8F1932bC35750'
     )
     // const isNameAvaialble = await contract.available(nameToRegister)
     // Get the price of the name
-    const priceWei = Number(
-        await contract.rentPrice(name, durationToRegister)
-    )
-    const priceEth = priceWei / Number(ethers.constants.WeiPerEther);
-    console.log(priceEth, priceWei);
+    // const priceWei = Number(
+    //     await contract.rentPrice(name, durationToRegister)
+    // )
+    // const priceEth = priceWei / Number(ethers.constants.WeiPerEther);
+    // console.log(priceEth, priceWei);
     const secret = '0x' + crypto.randomBytes(32).toString('hex');
     console.log(secret);
-//     // Make a commitment
+    // Make a commitment
     const commitment = await contract.makeCommitmentWithConfig(
     name, // name
     address, // owner
@@ -46,7 +46,7 @@ const resolver = '0xd7a4F6473f32aC2Af804B3686AE8F1932bC35750'
         resolver, // resolver
         address, // address
         {
-            value: priceWei, // Add 10% to account for price fluctuation; the difference is refunded.
+            value: 5000000000000000, // Add 10% to account for price fluctuation; the difference is refunded.
             gasLimit: 310000,
         }
     );
@@ -54,4 +54,13 @@ const resolver = '0xd7a4F6473f32aC2Af804B3686AE8F1932bC35750'
     } catch (error) {
         console.error(error);
     }
+}
+
+export async function getSecret() {
+  try {
+  const secret = '0x' + crypto.randomBytes(32).toString('hex');
+  console.log(secret);
+  } catch (error) {
+      console.error(error);
+  }
 }

@@ -1,8 +1,13 @@
+import React from 'react';
+import { useParams } from 'react-router-dom';
 import Head from "next/head";
 import Image from "next/image";
 import Link from "../components/link";
 
 const LinkTree = () => {
+    const pathname = window.location.pathname; // Gets the current pathname
+    const ENSName = pathname.slice(1); // Removes the leading slash
+    console.log(ENSName);
   // call function here
   return (
     <div className="">
@@ -17,7 +22,7 @@ const LinkTree = () => {
             alt="yo"
             />
             <h1 className="catchy-headline">
-                ENS Name
+                {ENSName}
             </h1>
         </div>
       </div>

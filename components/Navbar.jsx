@@ -1,45 +1,8 @@
 import Image from "next/image";
-import { useAccount, useConnect, useEnsName, useDisconnect } from "wagmi";
-import { InjectedConnector } from "wagmi/connectors/injected";
 import toast from "react-hot-toast";
+import { connectWallet } from "../utils/app";
 
 const Navbar = () => {
-  const { address, isConnected } = useAccount();
-
-  const { disconnect } = useDisconnect({
-    onSuccess() {
-      toast("Account disconnected!", {
-        style: {
-          border: "2px solid #000",
-        },
-      });
-    },
-    onError() {
-      toast.error("Failed to disconnect account!", {
-        style: {
-          border: "2px solid #000",
-        },
-      });
-    },
-  });
-  const { connect } = useConnect({
-    chainId: 5,
-    connector: new InjectedConnector(),
-    onSuccess() {
-      toast.success("Account connected!", {
-        style: {
-          border: "2px solid #000",
-        },
-      });
-    },
-    onError() {
-      toast.error("Error connecting account!", {
-        style: {
-          border: "2px solid #000",
-        },
-      });
-    },
-  });
 
   return (
     <div id="navbar" className="navbar sticky top-0 z-50 ">
@@ -100,24 +63,15 @@ const Navbar = () => {
         <div className="flex space-x-8 mr-8 text-lg">
         </div>
         <button
-          onClick={() => {
-            if (isConnected) {
-              disconnect();
-            } else {
-              connect();
-            }
-          }}
+        // write connect wallet function
+        onClick={async () => {
+          await connectWallet();
+        }}        
           className="relative inline-block px-4 py-2 font-medium group "
         >
           <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#bff22d] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
           <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#bff22d]"></span>
-          {address ? (
-            <span className="relative text-black">
-              {address.slice(0, 6) + "..." + address.slice(-4)}
-            </span>
-          ) : (
             <span className="relative text-black">Connect Wallet</span>
-          )}
         </button>
       </div>
     </div>

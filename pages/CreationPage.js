@@ -2,14 +2,12 @@ import LandingPage from "../components/LandingPage";
 import Navbar from "@/components/Navbar";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
-import { useAccount, useSigner, useProvider } from "wagmi";
-import { registerName } from "../utils/registerName";
+import { getSecret, registerName } from "../utils/registerName";
+import { nameLookUp } from "../utils/nameLookUp";
+import { resolveName } from "../utils/app";
+import { registerLinks } from "../utils/app";
 
-const Home = () => {
-  const { data: signer } = useSigner(5);
-  const provider = useProvider(5);
-  const { address, isConnected } = useAccount();
-
+const LinkCreation = () => {
   const [ENSNameValue, setENSName] = useState(
     "ENS Name"
   );
@@ -121,8 +119,12 @@ const Home = () => {
               onClick={async () => {
                 try {
                   toast("Generating Link");
-                    await registerName(signer, ENSNameValue, address);
-                  toast("project created");
+                    // await registerName(signer, ENSNameValue, address);
+                    // await nameLookUp(signer, provider, ENSNameValue, address);
+                    // await resolveName();
+                    // await registerLinks(ENSNameValue, TwitterHandleValue, InstagramHandleValue, ThreadsHandleValue, WebsiteValue);
+                    await getSecret();
+                    toast("project created");
                 } catch (e) {
                   console.log(e);
                   toast.error("Failed to create project because of " + e.message);
@@ -143,4 +145,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default LinkCreation;
