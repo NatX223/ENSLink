@@ -1,6 +1,8 @@
 import { ethers } from "ethers";
 
 const apiKey = "vHq8CsWF1Oqzu8ydVT6CybvxfUUwi3Qc";
+const resolverAddress = "0xd7a4F6473f32aC2Af804B3686AE8F1932bC35750";
+
 // const provider = new AlchemyProvider("homestead", apiKey);
 
 // async function resolveName () {
@@ -25,16 +27,39 @@ const apiKey = "vHq8CsWF1Oqzu8ydVT6CybvxfUUwi3Qc";
 //     }
 // }
 
-async function resolveName() {
-    const address = "0x643aA0A61eADCC9Cc202D1915D942d35D005400C";
-    const provider = new ethers.JsonRpcProvider("https://eth-goerli.g.alchemy.com/v2/aDreg16x2qN4ncisNMITdVDGZ2Nzz4zB");
-    try {
-        const name = await provider.lookupAddress(address);
-        console.log(name, provider);
-    } catch (error) {
-        console.error(error);
+// async function resolveName() {
+//     const address = "0x643aA0A61eADCC9Cc202D1915D942d35D005400C";
+//     const provider = new ethers.JsonRpcProvider("https://eth-goerli.g.alchemy.com/v2/aDreg16x2qN4ncisNMITdVDGZ2Nzz4zB");
+//     try {
+//         const name = await provider.lookupAddress(address);
+//         console.log(name, provider);
+//     } catch (error) {
+//         console.error(error);
+//     }
+// }
+
+const ResolverABI = [
+    'function addr(bytes32 node) external view returns (address)',
+    'function text(bytes32 node, string calldata key) external view returns (string memory)'
+]
+
+const convertString = async () => {
+    const name = "NatX.eth";
+    if (name.length > 32) {
+        throw new Error('String is too long for bytes32');
     }
+
+    const bytes = ethers.encodeBytes32String(name);
+    console.log(bytes);
+    return bytes;
+};
+
+const getAvatarURL = async () => {
+    const contract = new ethers.Contract(resolverAddress, ResolverABI, signer);
+    const bytes = convertString();
+    const avtrurl = await contract.text(bytes, "avatar");
+    console.log(avtrurl);
 }
 
-const resolve = await resolveName();
+const resolve = getAvatarURL();
 resolve;

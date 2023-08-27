@@ -51,7 +51,7 @@ const LinkTree = () => {
         <div className="mt-12 hero-content text-center">
           <div className="flex flex-col items-center rounded-lg">
               <Image
-              src="/vercel.svg"
+              src="/icons8-man-48.png"
               width={200}
               height={200}
               alt="yo"

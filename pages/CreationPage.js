@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { getSecret, registerName } from "../utils/registerName";
 import { nameLookUp } from "../utils/nameLookUp";
-import { createLinkTree } from "../utils/app";
+import { createLinkTree, setLinks } from "../utils/app";
 
 const LinkCreation = () => {
   const [ENSNameValue, setENSName] = useState(
@@ -118,14 +118,8 @@ const LinkCreation = () => {
               onClick={async () => {
                 try {
                   toast("Generating Link");
-                    // await registerName(signer, ENSNameValue, address);
-                    // await nameLookUp(signer, provider, ENSNameValue, address);
-                    // await resolveName();
-                    // await registerLinks(ENSNameValue, TwitterHandleValue, InstagramHandleValue, ThreadsHandleValue, WebsiteValue);
-                    await createLinkTree(ENSNameValue, TwitterHandleValue, InstagramHandleValue, ThreadsHandleValue, WebsiteValue);
-                    // await getSecret();
-                    // await renew();
-                    toast("project created");
+                      await createLinkTree(ENSNameValue, TwitterHandleValue, InstagramHandleValue, ThreadsHandleValue, WebsiteValue);
+                      toast("link generated successfully");
                 } catch (e) {
                   console.log(e);
                   toast.error("Failed to create project because of " + e.message);
@@ -136,7 +130,7 @@ const LinkCreation = () => {
               <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#bff22d] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
               <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#bff22d]"></span>
               <span className="relative text-black text-center">
-                Get Link
+                Generate LinkTree
               </span>
             </button>
           </div>

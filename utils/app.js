@@ -4,6 +4,7 @@ import { BrowserProvider, parseUnits } from "ethers";
 import { storeLinks, getLinks } from "../src/useFirestore";
 import { registerName, renewName } from "./registerName";
 import { ABI } from "./ENSABI";
+import { ResolverABI } from "./ResolverABI";
 import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi'
 
 var provider;
@@ -11,6 +12,7 @@ var signer;
 var address;
 
 const contractAddress = "0x228568EA92aC5Bc281c1E30b1893735c60a139F1";
+const resolverAddress = "0xd7a4F6473f32aC2Af804B3686AE8F1932bC35750";
 
 // functions
 // GenerateLink ✅
@@ -36,26 +38,26 @@ export const getUserAddress = async () => {
     return address;
 }
 
-export const resolveName = async (name, address) => {
+export const resolveName = async (name) => {
     try {
-        var balance = await provider.getBalance(address)
-        var resolvedAddress = await provider.resolveName("ethers.eth");
+        const address = await getUserAddress();
+        var resolvedAddress = await provider.resolveName(name);
         if (resolvedAddress == address) {
-            console.log(address + "resolves to " + name);
+            return true;
         } else {
-            console.log("error in lookup");
+            return false
         }
-        console.log(provider, name, balance, resolvedAddress);
     } catch (error) {
         console.error(error);
     }
 };
 
 export const createLinkTree = async (ENSName, twitterLink, instagramLink, threadsLink, website) => {
+    const userAddress = await getUserAddress();
     try {
-        const userAddress = await getUserAddress();
         await storeLinks(userAddress, ENSName, twitterLink, instagramLink, threadsLink, website);
         console.log("storage successful");
+        return true;
     } catch (error) {
         console.error(error);
     }
@@ -102,3 +104,29 @@ export const tip = async (address, amount) => {
         console.error(error);
     }
 };
+
+const convertString = async (name) => {
+    if (name.length > 32) {
+        throw new Error('String is too long for bytes32');
+    }
+    const bytes = ethers.encodeBytes32String(name);
+    return bytes;
+};
+
+const getAvatarURL = async (name) => {
+    const contract = new ethers.Contract(resolverAddress, ResolverABI, signer);
+    const bytes = convertString(name);
+    const avtrurl = await contract.text(bytes, "avatar");
+    console.log(avtrurl);
+}
+
+export const setLinks = async () => {
+    try {
+        const contract = new ethers.Contract(resolverAddress, ResolverABI, signer);
+        const bytes = convertString("NatX.eth");
+        await contract.setText(bytes, "com.github", "https://github.com/NatX223");
+        console.log("done");
+    } catch (error) {
+        console.error(error);
+    }
+}
