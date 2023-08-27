@@ -13,7 +13,7 @@ const Link = ({ item }) => {
         <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#9dd0eb] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
         <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#9dd0eb]"></span>
         <span className="relative text-lg text-black catchy-headline">
-          Twitter 
+          Twitter
         </span>
       </a>
       <a

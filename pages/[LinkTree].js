@@ -1,9 +1,11 @@
 import React from 'react';
 import Head from "next/head";
 import Image from "next/image";
+import Navbar from "@/components/Navbar";
 import Link from "../components/link";
 import { useEffect, useState } from "react";
-import { retrieveLinkTree } from '@/utils/app';
+import { renew, retrieveLinkTree, tip } from '@/utils/app';
+import { toast } from 'react-hot-toast';
 
 const LinkTree = () => {
   const pathname = window.location.pathname; // Gets the current pathname
@@ -11,6 +13,14 @@ const LinkTree = () => {
   console.log(ENSName);
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [TipValue, setTip] = useState(
+    0.1
+  );
+
+  const handleTipValueChange = (event) => {
+    setTip(event.target.value);
+  };
 
   useEffect(() => {
     async function fetchData() {
@@ -35,6 +45,7 @@ const LinkTree = () => {
   if (data) {
     return (
       <div className="">
+      <Navbar />
       <div className=" flex flex-col">
       <div className="hero mt-12 ">
         <div className="mt-12 hero-content text-center">
@@ -59,18 +70,51 @@ const LinkTree = () => {
       ))}
     </div>
     <div className="text-center">
-    <button
-          // href={item.link}
-          className="relative inline-block px-4 py-2 font-medium group mt-4 w-[600px] mx-auto"
-        >
-          <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#9dd0eb] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
-          <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#9dd0eb]"></span>
-          <span className="relative text-lg text-black catchy-headline">
-                Tip
-          </span>
-        </button>
+        <div>
+          <div className="form-control">
+          <button
+              className="relative inline-block px-4 py-2 font-medium group mt-4 w-[300px] mx-auto"
+            >
+              <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#9dd0eb] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#9dd0eb]"></span>
+              <span className="relative text-lg text-black catchy-headline">
+              <input
+              id="tip"
+              type='number'
+              className=""
+              value={TipValue}
+              onChange={handleTipValueChange}
+            />
+              </span>
+            </button>
+            <button
+          onClick={async () => {
+            try {
+              await tip(data[0].Address, TipValue);
+            } catch (error) {
+              toast.error("An error occured", TipValue);
+              console.log(error);
+            }
+          }}
+          className="relative inline-block px-4 py-2 font-medium group mt-4 w-[150px] mx-auto"
+            >
+              <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#9dd0eb] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>
+              <span className="absolute rounded-lg inset-0 w-full h-full bg-white border-2 border-black group-hover:bg-[#9dd0eb]"></span>
+              <span className="relative text-lg text-black catchy-headline">
+                    Tip
+              </span>
+            </button>
+          </div>
+        </div>
         <button
-          // href={item.link}
+          onClick={async () => {
+            try {
+              await renew(ENSName);
+            } catch (error) {
+              toast.error("An error occured");
+              console.log(error);
+            }
+          }}
           className="relative inline-block px-4 py-2 font-medium group mt-4 w-[600px] mx-auto"
         >
           <span className="absolute rounded-lg inset-0 w-full h-full transition duration-200 ease-out transform translate-x-1 translate-y-1 bg-[#9dd0eb] border-[2px] border-black group-hover:-translate-x-0 group-hover:-translate-y-0"></span>

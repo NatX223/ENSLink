@@ -3,7 +3,7 @@ require("dotenv").config();
 import { BrowserProvider, parseUnits } from "ethers";
 import { storeLinks, getLinks } from "../src/useFirestore";
 import { registerName, renewName } from "./registerName";
-
+import { ABI } from "./ENSABI";
 
 var provider;
 var signer;
@@ -13,10 +13,9 @@ const contractAddress = "0x228568EA92aC5Bc281c1E30b1893735c60a139F1";
 
 // functions
 // GenerateLink ✅
-// retreiveLinks
-// renewName
-// tip
-// contribute
+// retreiveLinks ✅
+// renewName ✅
+// tip 
 
 export const connectWallet = async () => {
     provider = new ethers.BrowserProvider(window.ethereum);
@@ -69,15 +68,35 @@ export const retrieveLinkTree = async (ENSName) => {
     }
 } ;
 
-export const renew = async () => {
+export const renew = async (ENSName) => {
     try {
-        await renewName(signer);
-        console.log("registration successful");
+        const contract = new ethers.Contract(contractAddress, ABI, signer);
+        await contract.renew(
+            ENSName, // name
+            31556952, // duration - one year
+            {
+                value: 5000000000000000,
+                gasLimit: 310000,
+            }
+        );
+        console.log("Renewed");
     } catch (error) {
         console.error(error);
     }
 };
 
-
-
-
+export const tip = async (address, amount) => {
+    const _value = amount.toString();
+    const weiValue = ethers.parseEther(amount);
+    try {
+        tx = await signer.sendTransaction({
+            to: address,
+            value: weiValue
+          });
+          
+          receipt = await tx.wait();
+        console.log("tipped successfully", _value);
+    } catch (error) {
+        console.error(error);
+    }
+};
