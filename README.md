@@ -38,7 +38,7 @@ Application ->> User: Display linktree webpage
 
 Application ->> Application: Add/edit social media links
 
-Application ->> Firebase: Store social media links off-chainUser 
+Application ->> Firebase: Store social media links off-chainUser
 
 Firebase ->> Application: Confirmation
 
@@ -46,12 +46,12 @@ Application -> ENS: Store social media links on-chain
 
 ENS ->> Application: Confirmation
 
-User ->> Application: Share linktree URL User 
+User ->> Application: Share linktree URL User
 
 Note right of Application: Linktree hosted on platform
 
 
-User ->Application: <--  View linktree page 
+User ->Application: <--  View linktree page
 
 User -> Application: Click on social media link
 
@@ -75,6 +75,7 @@ Application ->> User: Enhanced online visibility achieved
 
 ```
 ---
+
     
 ### Frontend Layer
 The frontend layer is a [next](https://nestjs.com/) based web app that permits the following actions for a user:
