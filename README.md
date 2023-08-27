@@ -25,39 +25,39 @@ The following is a sequence diagram outlining the contract interactions:
 sequenceDiagram
 
 
-User -> Application: Navigate to application
-User -> Application: Provide ENS name
+User ->> Application: Navigate to application
+User ->> Application: Provide ENS name
 
-Application -> Application: Generate linktree-style webpage
+Application ->> Application: Generate linktree-style webpage
 
-Application -> ENS: Retrieve ENS owner
-ENS -> Application: Return ENS owner details
+Application ->> ENS: Retrieve ENS owner
+ENS ->> Application: Return ENS owner details
 
-Application -> User: Display linktree webpage
+Application ->> User: Display linktree webpage
 
-User -> Application: Add/edit social media links
-Application -> Firebase: Store social media links off-chain
-Firebase -> Application: Confirmation
+User ->> Application: Add/edit social media links
+Application ->> Firebase: Store social media links off-chain
+Firebase ->> Application: Confirmation
 
-Application -> ENS: Store social media links on-chain
-ENS -> Application: Confirmation
+Application ->> ENS: Store social media links on-chain
+ENS ->> Application: Confirmation
 
-User -> Application: Share linktree URL
+User ->> Application: Share linktree URL
 
 Note right of Application: Linktree hosted on platform
 
-User <- Application: View linktree page
+User <<- Application: View linktree page
 
-User -> Application: Click on social media link
+User ->> Application: Click on social media link
 Application -> Social Media Platform: Redirect to user's profile
 
-User <- Social Media Platform: User's social media profile
+User <<- Social Media Platform: User's social media profile
 
-User -> Application: Back to linktree page
+User ->> Application: Back to linktree page
 
-User <- Application: Returns to linktree
+User <<- Application: Returns to linktree
 
-Application --> User: Enhanced online visibility achieved
+Application -->> User: Enhanced online visibility achieved
 
 
 
