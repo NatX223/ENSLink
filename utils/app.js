@@ -4,6 +4,7 @@ import { BrowserProvider, parseUnits } from "ethers";
 import { storeLinks, getLinks } from "../src/useFirestore";
 import { registerName, renewName } from "./registerName";
 import { ABI } from "./ENSABI";
+import { useEnsAddress, useEnsAvatar, useEnsName } from 'wagmi'
 
 var provider;
 var signer;
@@ -15,7 +16,10 @@ const contractAddress = "0x228568EA92aC5Bc281c1E30b1893735c60a139F1";
 // GenerateLink ✅
 // retreiveLinks ✅
 // renewName ✅
-// tip 
+// tip ✅
+// Avatar
+// name resolution
+// navBar
 
 export const connectWallet = async () => {
     provider = new ethers.BrowserProvider(window.ethereum);
@@ -27,7 +31,7 @@ export const connectWallet = async () => {
     console.log(signer);
 }
 
-export const getAddress = async () => {
+export const getUserAddress = async () => {
     address = await signer.address;
     return address;
 }
@@ -47,10 +51,9 @@ export const resolveName = async (name, address) => {
     }
 };
 
-
 export const createLinkTree = async (ENSName, twitterLink, instagramLink, threadsLink, website) => {
     try {
-        const userAddress = await getAddress();
+        const userAddress = await getUserAddress();
         await storeLinks(userAddress, ENSName, twitterLink, instagramLink, threadsLink, website);
         console.log("storage successful");
     } catch (error) {
